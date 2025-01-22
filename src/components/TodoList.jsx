@@ -11,6 +11,7 @@ export default function TodoList() {
     };
 
     const listAdd = () => {
+        if (!nputValue.trim()) return;
         const newDolist = {
             id: Date.now(),
             text: inputValue,
@@ -21,23 +22,20 @@ export default function TodoList() {
     };
 
     const listEdit = (id, newText) => {
-        const newDolist = [...doList];
-        const index = newDolist.findIndex((list) => list.id === id);
-        newDolist[index].text = newText;
-        setDoList(newDolist);
+        if (!newText) return;
+        setDoList(doList.map((list) =>
+            list.id === id ? { ...list, text: newText } : list
+        ));
     };
 
     const listDelete = (id) => {
-        const newDolist = doList.filter((list) => list.id !== id);
-        setDoList(newDolist);
+        setDoList(doList.filter((list) => list.id !== id));
     };
 
     const listComplete = (id) => {
-        cd
-        const newDolist = [...doList];
-        const index = newDolist.findIndex((doList) => doList.id === id);
-        newDolist[index].isCompleted = !newDolist[index].isCompleted;
-        setDoList(newDolist);
+        setDoList(doList.map((list) =>
+            list.id === id ? { ...list, isComplete: !list.isComplete } : list
+        ));
     };
 
     return (
@@ -45,30 +43,34 @@ export default function TodoList() {
             <div className="containerToDoList">
                 <div className="inputToDo">
                     <h1>Lista de Tareas</h1>
-                    <input type="text" value={inputValue} onChange={listInputChange} />
-                    <button className="button" onClick={listAdd}>Agregar</button>
+                    <div className="inputGroup">
+                        <input
+                            type="text"
+                            value={inputValue}
+                            onChange={listInputChange}
+                            placeholder="Añadir nueva tarea..."
+                        />
+                        <button className="button" onClick={listAdd}>Agregar</button>
+                    </div>
                 </div>
 
                 <div className="cont">
                     <ul className="listCont">
                         {doList.map((list) => (
-                            <li className="listContainer" key={list.id}>
+                            <li className={`listContainer ${list.isComplete ? 'completed' : ''}`} key={list.id}>
                                 <input
                                     type="checkbox"
                                     checked={list.isComplete}
                                     onChange={() => listComplete(list.id)}
                                 />
 
-                                {list.isComplete ? (
-                                    <del>{list.text}</del>
-                                ) : (
-                                    <span>{list.text}</span>
-                                )}
-                                <button className="button" onClick={() => listEdit(list.id, prompt("Editar Tarea: ", list.text))}>
+                                <span>{list.text}</span>
+
+                                <button className="button" onClick={() => listEdit(list.id, prompt("Editar Tarea:", list.text))}>
                                     Editar
                                 </button>
 
-                                <button className="button" onClick={() => listDelete(list.id)}>Borrar</button>
+                                <button className="button delete" onClick={() => listDelete(list.id)}>Borrar</button>
                             </li>
                         ))}
                     </ul>
