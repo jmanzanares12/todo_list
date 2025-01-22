@@ -80,14 +80,23 @@
     justify-content: space-between;
     padding: 10px 15px;
     border-bottom: 1px solid #e0e0e0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
 .listContainer:last-child {
     border-bottom: none;
 }
 
+.listContainer .completed {
+    text-decoration: line-through;
+    color: #999;
+    opacity: 0.6;
+}
+
 .listContainer input[type="checkbox"] {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .listContainer span {
@@ -117,6 +126,13 @@
     background-color: #c0392b;
 }
 
+.button.delete {
+    background-color: #FF6B6B;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
 
 @media (max-width: 480px) {
     input[type="text"] {

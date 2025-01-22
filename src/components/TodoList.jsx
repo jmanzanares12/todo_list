@@ -11,7 +11,7 @@ export default function TodoList() {
     };
 
     const listAdd = () => {
-        if (!nputValue.trim()) return;
+        if (!inputValue.trim()) return;
         const newDolist = {
             id: Date.now(),
             text: inputValue,
