@@ -88,10 +88,9 @@
     border-bottom: none;
 }
 
-.listContainer .completed {
+.listContainer.completed span {
     text-decoration: line-through;
     color: #999;
-    opacity: 0.6;
 }
 
 .listContainer input[type="checkbox"] {

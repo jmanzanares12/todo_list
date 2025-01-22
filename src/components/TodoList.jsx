@@ -33,9 +33,10 @@ export default function TodoList() {
     };
 
     const listComplete = (id) => {
-        setDoList(doList.map((list) =>
-            list.id === id ? { ...list, isComplete: !list.isComplete } : list
-        ));
+        const newDolist = [...doList];
+        const index = newDolist.findIndex((list) => list.id === id);
+        newDolist[index].isComplete = !newDolist[index].isComplete;
+        setDoList(newDolist);
     };
 
     return (
